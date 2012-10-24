@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://headertool/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://headertool/locale/overlay.dtd">
+<overlay id="headertool-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="overlay.js"/>
+  <script src="ff-overlay.js"/>
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="headertool-strings" src="chrome://headertool/locale/overlay.properties"/>
+  </stringbundleset>
+    
+  <commandset id="mainCommandSet">
+	  <command id="cmd_save_as"  oncommand="headertool.saveAsCurrentConfiguration();"/>
+	  <command id="cmd_save"     oncommand="headertool.saveCurrentConfiguration();"  />
+	  <command id="cmd_load"     oncommand="headertool.loadCurrentConfiguration();"  />
+	  <command id="cmd_info"     oncommand="headertool.openAbout();"/>
+	  <command id="cmd_show"     oncommand="toggleSidebar('viewSidebar_headertool');"/>
+	  <command id="cmd_on"       oncommand="headertool.parser();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('button_clear').setAttribute('disabled', 'false');"/>
+	  <command id="cmd_off"      oncommand="headertool.clear();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('button_apply').setAttribute('disabled', 'false');"/>
+	  <command id="cmd_tab"      oncommand="headertool.mainWindow.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
+  </commandset>        
+  
+  
+  <menupopup id="viewSidebarMenu">
+    <menuitem key="key_openSidebar_headertool" observes="viewSidebar_headertool" />
+  </menupopup>
+
+  <keyset id="mainKeyset">
+    <key id="key_openSidebar_headertool" keycode="VK_F4" command="viewSidebar_headertool"/>
+    <key id="key_on"   modifiers="control" keycode="4" command="cmd_on"/>
+    <key id="key_off"  modifiers="control" keycode="5" command="cmd_off"/>
+    <key id="key_tab"  modifiers="control" keycode="3" command="cmd_tab"/>    
+  </keyset>
+
+  <statusbar id="status-bar">
+
+	<toolbarbutton type="menu-button" 
+		       id="htMenu" 
+		       tooltiptext="Header tool"
+		       role="button" 
+		       aria-haspopup="true" >
+	    <image src="chrome://headertool/skin/Crocodile_small.png" />
+	    <menupopup>
+	      <!--menuitem label="&headertoolSidebar.saveas;" disabled="true" command="cms_save_as"/>
+	      <menuitem label="&headertoolSidebar.save;"   disabled="true" command="cmd_save"/>
+	      <menuitem label="&headertoolSidebar.load;"   disabled="true" command="cmd_load"/-->
+	      <menuseparator/>
+	      <menuitem label="&headertoolSidebar.info;"    command="cmd_info"/>
+	      <menuseparator/>
+	      <menuitem label="&headertoolSidebar.show;"    command="cmd_show"/>
+	  </menupopup>
+
+	    
+	</toolbarbutton>
+  </statusbar>
+
+
+  <broadcasterset id="mainBroadcasterSet">
+    <broadcaster id="viewSidebar_headertool"
+                 label="&headertoolSidebar.label;"
+                 autoCheck="false"
+                 type="checkbox"
+                 group="sidebar"
+                 sidebarurl="chrome://headertool/content/ff-sidebar.xul"
+                 sidebartitle="&headertoolSidebar.label;"
+                 oncommand="toggleSidebar('viewSidebar_headertool');" />
+  </broadcasterset>
+
+</overlay>
