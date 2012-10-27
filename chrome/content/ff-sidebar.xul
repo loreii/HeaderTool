@@ -7,61 +7,28 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   
   <script src="overlay.js"/>
-  
-  <script>
-   
-
-  </script>
-  
+ 
   
   <vbox>
-  <hbox style="border-top: 1px solid black; border-bottom: 1px solid black;">
+      <hbox style="border-top: 1px solid black; border-bottom: 1px solid black;">
 
-  <button label="ON" accesskey="A" id="button_apply"
-        oncommand="headertool.parser();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('button_clear').setAttribute('disabled', 'false');"
-        crop="end"   
-        tooltiptext="Click here to apply the current headers in the editor"
-        persist="disabled"   />
-  <button label="OFF" accesskey="C" id="button_clear" 
-        disabled="true"
-        oncommand="headertool.clear();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('button_apply').setAttribute('disabled', 'false');"
-        crop="end" 
-        tooltiptext="Click here to restore the default headers" 
-        persist="disabled"        />
-  <button label="WGET" accesskey="W" 
-        disabled="false"
-        oncommand="headertool.serialize('--header=',headertool.getCode());alert('Headers is now in your clipboard with wget shape.')"
-        crop="end" 
-        tooltiptext="Click here copy headers in clipboard with WGET syntax" 
-        persist="disabled"        />
-  <button label="CURL" accesskey="U" 
-        disabled="false"
-        oncommand="headertool.serialize('-H ',headertool.getCode());alert('Headers is now in your clipboard with curl shape.')"
-        crop="end" 
-        tooltiptext="Click here copy headers in clipboard with CURL syntax" 
-        persist="disabled"/>      
-
-  <button label="Tab" accesskey="T" 
-        disabled="false"
-        oncommand="headertool.mainWindow.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"
-        crop="end" 
-        tooltiptext="Open in a tab" 
-        persist="disabled"/>      
-  </hbox>
-  
-  
-  <vbox flex="1"  style="border-top: 1px solid black; border-bottom: 1px solid black;width:100%;height:100%;">
-
-
-
-  </vbox>
+          <button label="ON" accesskey="A" id="headertool_button_apply"
+                oncommand="headertool.parser();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_clear').setAttribute('disabled', 'false');"
+                crop="end"   
+                tooltiptext="Click here to apply the current headers in the editor"
+                persist="disabled"        />
+          <button label="OFF" accesskey="C" id="headertool_button_clear" 
+                disabled="true"
+                oncommand="headertool.clear();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_apply').setAttribute('disabled', 'false');"
+                crop="end" 
+                tooltiptext="Click here to restore the default headers" 
+                persist="disabled"        />
+          
+      </hbox>
+      
   </vbox>
   
   <textbox flex="1" id="headerText" multiline="true"  persist="saved" wrap="off" oninput="headertool.savePref()" />
 
-  <script type="text/javascript">
-    //document.getElementById('headerText').value=headertool.text;
-  </script>
-
-
+  
 </page>

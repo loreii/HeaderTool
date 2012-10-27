@@ -5,65 +5,79 @@
   <script src="overlay.js"/>
   <script src="ff-overlay.js"/>
 
-  <stringbundleset id="stringbundleset">
-    <stringbundle id="headertool-strings" src="chrome://headertool/locale/overlay.properties"/>
-  </stringbundleset>
     
   <commandset id="mainCommandSet">
-	  <command id="cmd_save_as"  oncommand="headertool.saveAsCurrentConfiguration();"/>
-	  <command id="cmd_save"     oncommand="headertool.saveCurrentConfiguration();"  />
-	  <command id="cmd_load"     oncommand="headertool.loadCurrentConfiguration();"  />
-	  <command id="cmd_info"     oncommand="headertool.openAbout();"/>
-	  <command id="cmd_show"     oncommand="toggleSidebar('viewSidebar_headertool');"/>
-	  <command id="cmd_on"       oncommand="headertool.parser();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('button_clear').setAttribute('disabled', 'false');"/>
-	  <command id="cmd_off"      oncommand="headertool.clear();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('button_apply').setAttribute('disabled', 'false');"/>
-	  <command id="cmd_tab"      oncommand="headertool.mainWindow.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
+          <command id="headertool_cmd_save_as"             oncommand="headertool.saveAsCurrentConfiguration();"/>
+          <command id="headertool_cmd_save"                oncommand="headertool.saveCurrentConfiguration();"  />
+          <command id="headertool_cmd_load"                oncommand="headertool.loadCurrentConfiguration();"  />
+          <command id="headertool_cmd_info"                oncommand="headertool.openAbout();"		       />
+          <command id="headertool_cmd_show"                oncommand="toggleSidebar('headertool_viewSidebar');"/>
+          <!--command id="headertool_cmd_on"                  oncommand="headertool.on();"/>
+          <command id="headertool_cmd_off"                 oncommand="headertool.off();"/-->
+          <command id="headertool_cmd_tab"                 oncommand="headertool.window_main.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
   </commandset>        
   
   
   <menupopup id="viewSidebarMenu">
-    <menuitem key="key_openSidebar_headertool" observes="viewSidebar_headertool" />
+    <menuitem  key="key_openSidebar_headertool" observes="headertool_viewSidebar" />
   </menupopup>
 
   <keyset id="mainKeyset">
-    <key id="key_openSidebar_headertool" keycode="VK_F4" command="viewSidebar_headertool"/>
-    <key id="key_on"   modifiers="control" keycode="4" command="cmd_on"/>
-    <key id="key_off"  modifiers="control" keycode="5" command="cmd_off"/>
-    <key id="key_tab"  modifiers="control" keycode="3" command="cmd_tab"/>    
+    <key id="headertool_key_openSidebar"                     keycode="VK_F4"     command="headertool_viewSidebar"/>
+    <!--key id="headertool_key_on"          modifiers="alt"     keycode="o"     command="headertool_cmd_on"/>
+    <key id="headertool_key_off"         modifiers="alt"     keycode="p"     command="headertool_cmd_off"/-->
+    
   </keyset>
 
   <statusbar id="status-bar">
 
-	<toolbarbutton type="menu-button" 
-		       id="htMenu" 
-		       tooltiptext="Header tool"
-		       role="button" 
-		       aria-haspopup="true" >
-	    <image src="chrome://headertool/skin/Crocodile_small.png" />
-	    <menupopup>
-	      <!--menuitem label="&headertoolSidebar.saveas;" disabled="true" command="cms_save_as"/>
-	      <menuitem label="&headertoolSidebar.save;"   disabled="true" command="cmd_save"/>
-	      <menuitem label="&headertoolSidebar.load;"   disabled="true" command="cmd_load"/-->
-	      <menuseparator/>
-	      <menuitem label="&headertoolSidebar.info;"    command="cmd_info"/>
-	      <menuseparator/>
-	      <menuitem label="&headertoolSidebar.show;"    command="cmd_show"/>
-	  </menupopup>
-
+       
+        <toolbarbutton id="headertool_menu_status" 
+                       type="menu"                         
+                       tooltiptext="Header tool"
+                       aria-haspopup="true"
+                       image="chrome://headertool/skin/Crocodile_small.png"       >
+            
+            <menupopup id="headertool_status_bar">
+              <menuitem  key="key_openSidebar_headertool" observes="headertool_viewSidebar" />
+	      <menuitem label="&headertoolSidebar.openin_tab;"  value=""   command="headertool_cmd_tab"/>
+              <!-- menuitem label="&headertoolSidebar.saveas;" disabled="true" command="cms_save_as"/>
+              <menuitem label="&headertoolSidebar.save;"   disabled="true" command="headertool_cmd_save"/>
+              <menuitem label="&headertoolSidebar.load;"   disabled="true" command="headertool_cmd_load"/ -->
+              <menuseparator/>
+              <menuitem label="&headertoolSidebar.info;"        value=""   command="headertool_cmd_info"/>
+              <menuseparator/>
+              
+	        
+	      <menuitem label="WGET" accesskey="W" 
+		disabled="false"
+		oncommand="headertool.serialize('--header=',headertool.getCode());alert('Headers is now in your clipboard with wget shape.')"
+		crop="end" 
+		tooltiptext="Click here copy headers in clipboard with WGET syntax" 
+		persist="disabled"        />
+	      <menuitem label="CURL" accesskey="U" 
+		disabled="false"
+		oncommand="headertool.serialize('-H ',headertool.getCode());alert('Headers is now in your clipboard with curl shape.')"
+		crop="end" 
+		tooltiptext="Click here copy headers in clipboard with CURL syntax" 
+		persist="disabled"/>          
 	    
-	</toolbarbutton>
+	      </menupopup>
+         </toolbarbutton>
+       
   </statusbar>
-
-
+  
+  
+  
   <broadcasterset id="mainBroadcasterSet">
-    <broadcaster id="viewSidebar_headertool"
+    <broadcaster id="headertool_viewSidebar"
                  label="&headertoolSidebar.label;"
                  autoCheck="false"
                  type="checkbox"
                  group="sidebar"
                  sidebarurl="chrome://headertool/content/ff-sidebar.xul"
                  sidebartitle="&headertoolSidebar.label;"
-                 oncommand="toggleSidebar('viewSidebar_headertool');" />
+                 oncommand="toggleSidebar('headertool_viewSidebar');" />
   </broadcasterset>
 
 </overlay>

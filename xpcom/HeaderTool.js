@@ -35,12 +35,12 @@ var headerMap = new Array();
   
   
 function LOG(text){
-//       var consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
-//       consoleService.logStringMessage(text);
+       var consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
+       consoleService.logStringMessage(text);
 }
 
 function HeaderTool() {
-this.wrappedJSObject = this;
+       this.wrappedJSObject = this;
 }
 
 HeaderTool.prototype = {
@@ -49,8 +49,6 @@ HeaderTool.prototype = {
   contractID:       "@headertool.googlecode.com/headertool;1",
   QueryInterface: XPCOMUtils.generateQI(),
   
-
-  hello: function() { return "Hello World!"; },
  
   observe: function(subject, topic, data)
   {

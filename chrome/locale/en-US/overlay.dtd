@@ -1,9 +1,9 @@
-<!ENTITY headertoolSidebar.label  "Header Tool"     >
-<!ENTITY headertoolSidebar.saveas "Save As .."      >
-<!ENTITY headertoolSidebar.save   "Save .."         >
-<!ENTITY headertoolSidebar.load   "Load .."         >
-<!ENTITY headertoolSidebar.info   "Info .."         >
-<!ENTITY headertoolSidebar.show   "Show Header Tool">
-
+<!ENTITY headertoolSidebar.label       "Header Tool"     >
+<!ENTITY headertoolSidebar.saveas      "Save As .."      >
+<!ENTITY headertoolSidebar.save        "Save .."         >
+<!ENTITY headertoolSidebar.load        "Load .."         >
+<!ENTITY headertoolSidebar.info        "Info .."         >
+<!ENTITY headertoolSidebar.show        "Show Header Tool">
+<!ENTITY headertoolSidebar.openin_tab  "Open in Tab"     >
 <!--ENTITY headertoolToolbar.name  "example">
 <!ENTITY headertoolToolbar.label "This is an example toolbar. You can hide it under View &gt; toolbars &gt; &headertoolToolbar.name;"-->

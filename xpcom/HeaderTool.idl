@@ -3,7 +3,6 @@
 [scriptable, uuid(e5b1dd2b-f168-4ea0-b0c0-3cee132cbcac)]
 interface nsIHeaderTool : nsISupports
 {
-  string hello();
   string register();
   void   put(in string  key, in string  value);
   void   remove(in string  key);
