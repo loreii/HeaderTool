@@ -2,11 +2,10 @@ content    headertool                 chrome/content/
 skin       headertool   classic/1.0   chrome/skin/
 locale     headertool   en-US         chrome/locale/en-US/
 
+resource   headertool                 modules/
+
 overlay    chrome://browser/content/browser.xul   chrome://headertool/content/ff-overlay.xul
 
-interfaces components/HeaderTool.xpt
 
 
-component  {e5b1dd2b-f168-4ea0-b0c0-3cee132cbcac} components/HeaderTool.js
-contract   @headertool.googlecode.com/headertool;1 {e5b1dd2b-f168-4ea0-b0c0-3cee132cbcac}
 

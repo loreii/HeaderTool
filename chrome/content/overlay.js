@@ -23,33 +23,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
    - https://developer.mozilla.org/en/Setting_HTTP_request_headers
  */
 
+Components.utils.import("resource://headertool/common.js");
+Components.utils.import("resource://headertool/headertoolModule.js");
 
 
 /* ===================================================================================== *
  * HTNamespace namespace.
  * ===================================================================================== */
 
-if (typeof headertool == "undefined") {
+if (typeof (headertool) == "undefined") {
 
         /* ========================================== *
          *    Namespace inizialization 
          * ========================================== */        
         var headertool = {                                                                         
 
-                        preferencies                          : "extensions.headertool.preferencies.",
+                        preferencies                          : null,
+			supportstrings                        : null,
                         window_main                           : null,  // current    window
                         window_about                          : null,  // about+help window
-                        logEnable                             : true,  
-                        headerToolInit                        : false,
+                        logEnable                             : false,  
+                        initialized                           : false,
                         apply_headers                         : false,
-                        myComponent                           : null,
+                      
                         globalfile                            : null,
                         text                                  : "",
 
 
-
                         LOG:function (text){
-                                if(headertool.LOGEnable == false)
+                                if(headertool.logEnable == false)
                                         return; 
                                 var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
                                 .getService(Components.interfaces.nsIConsoleService);
@@ -83,32 +85,31 @@ if (typeof headertool == "undefined") {
                          * Initializes this object.
                          * ===================================================================================== */
                         startup : function() {
-                                // initialization code
-                                this.initialized = true;
                                 
-                                if(headertool.headerToolInit==false){
-                                        this.window_main = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                                headertool.LOG("Initialization ("+headertool.initialized+")");
+				try{
+                                if(headertool.initialized==false){
+                                        headertool.window_main = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                                         .getInterface(Components.interfaces.nsIWebNavigation)
                                         .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
                                         .rootTreeItem
                                         .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                                         .getInterface(Components.interfaces.nsIDOMWindow);
 
-                                        // Sidebar is loaded and mainwindow is ready               
-                                        try {    
-                                                headertool.myComponent = Components.classes['@headertool.googlecode.com/headertool;1']
-                                                .getService().wrappedJSObject;
-                                                var stat=headertool.myComponent.register();
-                                                headertool.LOG("myComponent register ... ["+stat+"]");
-                                        } catch (anError) {
-                                                headertool.LOG("startup ERROR: " + anError);
-                                                alert(anError);
-                                        }
+					headertool.preferencies = Components.classes["@mozilla.org/preferences-service;1"]
+					.getService(Components.interfaces.nsIPrefService)
+					.getBranch("extensions.headertool.preferencies.");
 
-
+					headertool.supportstrings = Components.classes["@mozilla.org/supports-string;1"]
+                                        .createInstance(Components.interfaces.nsISupportsString);
 
                                         headertool.LOG("Initialization... [done]");
                                 }
+				}catch(exx){
+				        headertool.LOG("Initialization... [ KO ] " +exx );
+				}
+                                // initialization code
+                                this.initialized = true;
                         },
 
                         shutdown : function() {
@@ -125,28 +126,28 @@ if (typeof headertool == "undefined") {
                                         return "";
                                 }
                         },  
-
+/*
 			on:function(){
 			  headertool.parser();
 			  headertool.togleOnOff();
 			  try{
-			    this.window_main.document.getElementById('headertool_button_apply').setAttribute('disabled', 'true');
-			    this.window_main.document.getElementById('headertool_button_clear').setAttribute('disabled', 'false');
+			    headertool.window_main.document.getElementById('headertool_button_apply').setAttribute('disabled', 'true');
+			    headertool.window_main.document.getElementById('headertool_button_clear').setAttribute('disabled', 'false');
 			  }catch(ex){
 			    headertool.LOG("Exception in on -> \n'"+ex+"'");
 			  }
 			},
 			
-			/*off:function(){
+			off:function(){
 			  headertool.clear();
 			  headertool.togleOnOff();
 			  try{
-			    this.window_main.document.getElementById('headertool_button_clear').setAttribute('disabled', 'true');
-			    this.window_main.document.getElementById('headertool_button_apply').setAttribute('disabled', 'false');
+			    headertool.window_main.document.getElementById('headertool_button_clear').setAttribute('disabled', 'true');
+			    headertool.window_main.document.getElementById('headertool_button_apply').setAttribute('disabled', 'false');
 			  }catch(ex){
 			    headertool.LOG("Exception in off -> \n'"+ex+"'");
 			  }
-			},
+			},*/
 			
                         setCode:function(value){
                                 try{ 
@@ -156,7 +157,7 @@ if (typeof headertool == "undefined") {
                                 }catch(exx){
                                         headertool.LOG("Exception in setCode -> \n'"+exx+"'");
                                 }
-                        },*/  
+                        },
 
                         /* ===================================================================================== *
                          *  DISPLAY THE ABOUT WINDOW
@@ -174,24 +175,20 @@ if (typeof headertool == "undefined") {
                         /* ===================================================================================== *
                          *  SAVED HEADER FUNCTIONS
                          * ===================================================================================== */
-                        loadPref:function(){
-                                //alert("load pref");
+                        loadPref:function(e){
+                                headertool.LOG("Loading Preferencies ("+e+")");  
                                 var value=false;
                                 // Init preferencies
                                 try{
-                                        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                                        .getService(Components.interfaces.nsIPrefService)
-                                        .getBranch("extensions.headertool.preferencies.");
 
-                                        value = prefs.getBoolPref("onoff"); 
+                                        value = headertool.preferencies.getBoolPref("onoff"); 
 					headertool.LOG("Preference onoff : "+value);      
-                                        var text = prefs.getComplexValue("editor",
+                                        var text = headertool.preferencies.getComplexValue("editor",
                                                         Components.interfaces.nsISupportsString).data;
 
                                         headertool.text = text;
                                         
                                         if(value==true){
-
                                                 headertool.parser(text);
 						headertool.LOG("Reset UI...");      
                                                 //Reset UI
@@ -201,8 +198,8 @@ if (typeof headertool == "undefined") {
 
                                         headertool.LOG("Startup with editor value -> \n'"+text+"'");  
                                 }catch(exx){
-
-                                        prefs.setBoolPref("onoff", false); 
+				        headertool.LOG("Exception during loading preferencies : "+exx+"");  
+                                        headertool.preferencies.setBoolPref("onoff", false); 
                                 }
 
                                 try{
@@ -216,25 +213,17 @@ if (typeof headertool == "undefined") {
                                 
                                 
                                 headertool.setCode( headertool.text );
-                                headertool.LOG("loadPref... [done]");
+                                headertool.LOG("Loading Preferencies... [done]");
                                 
                         },
 
                         savePref : function (){
                                 try{
                                         headertool.LOG("Preferencies saving..");
-                                        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                                        .getService(Components.interfaces.nsIPrefService)
-                                        .getBranch("extensions.headertool.preferencies.");
 
-                                        var str = Components.classes["@mozilla.org/supports-string;1"]
-                                        .createInstance(Components.interfaces.nsISupportsString);
-
-
-                                        str.data = window.document.getElementById("headerText").value;
-
+                                        headertool.supportstrings.data = window.document.getElementById("headerText").value;
                                         
-                                        prefs.setComplexValue("editor", 
+                                        headertool.preferencies.setComplexValue("editor", 
                                                         Components.interfaces.nsISupportsString, str);
                                         
                                         headertool.setCode( str.data );
@@ -247,16 +236,10 @@ if (typeof headertool == "undefined") {
 
                         togleOnOff: function() {
 
-                                var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                                .getService(Components.interfaces.nsIPrefService)
-                                .getBranch("extensions.headertool.preferencies.");
-
-                                var value = prefs.getBoolPref("onoff"); 
-                                prefs.setBoolPref("onoff", !value); 
+                                var value = headertool.preferencies.getBoolPref("onoff"); 
+                                headertool.preferencies.setBoolPref("onoff", !value); 
                                 headertool.LOG("Togle to "+!value);
                         },
-
-
 
 
                         jsEngine:function(text){
@@ -274,8 +257,6 @@ if (typeof headertool == "undefined") {
                                 s.getPathname            = headertool.getPathname;
                                 s.getSearch              = headertool.getSearch;        
                                 
-                                //s.importFunction(myIpAddress);
-                                //s.importFunction(dnsResolve);
 
                                 while ((jsStart=text.indexOf("${")) > -1){ 
                                         jsEnd=-1;
@@ -327,7 +308,7 @@ if (typeof headertool == "undefined") {
 
 
                                 //clean the header set in XPCOM 
-                                headertool.myComponent.clear();
+                                headertoolModule.HeaderTool.clear();
 
                                 text = headertool.jsEngine(text);
 
@@ -345,7 +326,7 @@ if (typeof headertool == "undefined") {
 
                                         //a regexp is applied
                                         if(lines[i].charAt(0)=='@'){        
-                                                headertool.myComponent.put(regexp,map);
+                                                headertoolModule.HeaderTool.put(regexp,map);
                                                 map=new Array();
                                                 regexp=lines[i].substring(1);
                                                 continue;
@@ -388,36 +369,23 @@ if (typeof headertool == "undefined") {
 
                                 }
 
-                                headertool.myComponent.put(regexp,map);
+                                headertoolModule.HeaderTool.put(regexp,map);
 
-                               /*
-                               //allow non character keys (delete, backspace and and etc.)
-                               if ((evt.charCode == 0) && (evt.keyCode != 13))
-                                 return true;
-
-
-
-                               if(evt.target.value.length < 10) {
-                                   return true;
-                               } else {
-                                   return false;
-                               }
-                               */
                         },
 
 
-                        /**
-                         *Remove the headers set by the XPCOM component
-                         */
+                        /* ======================================= *
+                         * Remove the headers set 
+                         * ======================================= */
                         clear : function() {
-                                headertool.myComponent.clear();
+                                headertoolModule.HeaderTool.clear();
                         },
 
 
-                        /*
+                        /* ======================================================================================= *
                          * Take the current editor code, add a new menu item putting as a value the editor code.
                          * Is called by the save as button
-                         */
+                         * ======================================================================================= */
                         loadCurrentConfiguration : function(){
 
                                 var nsIFilePicker = Components.interfaces.nsIFilePicker;
@@ -448,9 +416,9 @@ if (typeof headertool == "undefined") {
 
                         },
 
-                        /*
+                        /* ======================================================================================= *
                          * Take the menu item value and set it into the editor code, i called on select by menuitem
-                         */
+                         * ======================================================================================= */
                         saveCurrentConfiguration : function(){
 
                                 if(this.globalfile==null){
@@ -621,27 +589,6 @@ if (typeof headertool == "undefined") {
                                 return headertool.window_main.content.location.search;
                         },
                         
-                         /*
-                         * utility taken from http://mxr.mozilla.org/mozilla/source/netwerk/base/src/nsProxyAutoConfig.js
-                         * wrapper for getting local IP address called by PAC file
-                        myIpAddress:function () {
-                          try {
-                            return headertool.dns.resolve(dns.myHostName, 0).getNextAddrAsString();
-                          } catch (e) {
-                            return '127.0.0.1';
-                          }
-                        },
-                
-                        // wrapper for resolving hostnames called by PAC file
-                        dnsResolve:function (host) {
-                            host = XPCSafeJSObjectWrapper(host);
-                            try {
-                               return hedertool.dns.resolve(host, 0).getNextAddrAsString();
-                            } catch (e) {
-                            return null;
-                          }
-                        },
-                        */
 
 
         };//END OF NAMESPACE
@@ -650,7 +597,7 @@ if (typeof headertool == "undefined") {
          * Constructor.
          */
         (function() {
-                this.startup();
+                headertool.startup();
         }).apply(headertool);
 
 

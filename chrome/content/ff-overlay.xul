@@ -12,7 +12,7 @@
           <command id="headertool_cmd_load"                oncommand="headertool.loadCurrentConfiguration();"  />
           <command id="headertool_cmd_info"                oncommand="headertool.openAbout();"		       />
           <command id="headertool_cmd_show"                oncommand="toggleSidebar('headertool_viewSidebar');"/>
-          <!--command id="headertool_cmd_on"                  oncommand="headertool.on();"/>
+          <!--command id="headertool_cmd_on"               oncommand="headertool.on();"/>
           <command id="headertool_cmd_off"                 oncommand="headertool.off();"/-->
           <command id="headertool_cmd_tab"                 oncommand="headertool.window_main.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
   </commandset>        
@@ -24,7 +24,7 @@
 
   <keyset id="mainKeyset">
     <key id="headertool_key_openSidebar"                     keycode="VK_F4"     command="headertool_viewSidebar"/>
-    <!--key id="headertool_key_on"          modifiers="alt"     keycode="o"     command="headertool_cmd_on"/>
+    <!--key id="headertool_key_on"          modifiers="alt"  keycode="o"     command="headertool_cmd_on"/>
     <key id="headertool_key_off"         modifiers="alt"     keycode="p"     command="headertool_cmd_off"/-->
     
   </keyset>

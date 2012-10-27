@@ -40,107 +40,59 @@ ul {
 <body>
 <div>
 <!--img src="chrome://headertool/skin/Crocodile.png" /-->
-<h1>About HeaderTool</h1>
-</div>
-<p> Using this tool you can easy modify header on each HTTP call on the Mozilla Firefox. 
-The tool is based on the same main stream idea of modify header but use a more simple 
-text editor interface more quicker do edit and to store and save for multiple and repeated test cases.
- As example you can save your header in a simple txt file and reuse it just cut (crtl+C) and pasting
- (crtl+V) it. If you find an issue or you have an idea on how improve this plugin please open a ticket 
-on this site, as soon as possible i'll try to fix it. If you are a developer don't hesitate to send to me the patch
- ;) Strengths : simplicity, JS substitution like base 64, quick changes can do easy. 
-You need a CR (Change Request) click here?</p>
+<h1><a name="Header_Tool"></a>Header Tool<a href="#Header_Tool" class="section_anchor"></a></h1><p><p align="justify"> You can easy modify header on each HTTP call on the <strong>Mozilla Firefox</strong>. The tool is based on the same main stream idea of modify header but use a more simple text editor interface more quicker do edit and to store and save for multiple and repeated test cases.</p> <p align="justify"> Using this tool you can easy modify header on each HTTP call on the <strong>Mozilla Firefox</strong>. The tool is based on the same main stream idea of modify header but use a more simple text editor interface more quicker do edit and to store and save for multiple and repeated test cases. As example you can save your header in a simple txt file and reuse it just cut (crtl+C) and pasting (crtl+V) it. <a href="https://www.ohloh.net/p/HeaderTool" rel="nofollow">Ohloh code analysis</a>. If you find an issue or you have an idea on how improve this plugin please <a href="http://code.google.com/p/headertool/issues/list" rel="nofollow">open a ticket</a> on this site, as soon as possible i&#x27;ll try to fix it. If you are a developer don&#x27;t hesitate to send to me the patch ;)   Strengths : simplicity, JS substitution like base 64, quick changes can do easy. You need a CR (Change Request) click <a href="http://code.google.com/p/headertool/issues/list" rel="nofollow">here</a>? </p> </p><p><a href="https://addons.mozilla.org/en-US/firefox/addon/271768/" rel="nofollow">https://addons.mozilla.org/en-US/firefox/addon/271768/</a> </p><p>Support for JS substitution in ${} statement that permit you to do as example :  </p><pre class="prettyprint">X-USERNAME    : ${b64(&#x27;foo&#x27;)}                      #base64 encoding&quot;
+X-NOW         : ${new Date()}                      #current date&quot;
 
-<h2>General functions:</h2>
-<p>You can use F4 for show/hide the side bar.</p>
-<pre>
-  
-    Start a comment with : '#' 
-    Add/modify an header with : 'header_key : header_value' 
-    JS substitution in ${} statement ie :
-    X-NOW      : ${new Date()}        #current date
-    
-</pre>
-  <h2>Available special functions:</h2>
-<p>Support for JS substitution in ${} statement that permit you to do as example :</p>
-<pre>
+#========================================================================================
 
-    X-USERNAME : ${b64('foo')}         #base64 encoding"
-    X-NOW      : ${new Date()}         #current date"
+Authorization : Basic ${b64(&quot;username:password&quot;)}  #implement Base authentication easily
 
-    x-multiline-js: ${
-    //split header def on multiple line
-    "aaaaaaa"
-    }
+#========================================================================================
 
-    X-PATH   : ${
-		encodeURIComponent(
-		  ""+getPathname()+getSearch()
-	      ) }
+X-SUMS     : ${
+                  var a = &quot;&quot;;                      #or do complex things :P
+                  for(i = 0; i&lt;100;++i){
+                       a+=i
+                  }
+                a;
+              }
+</pre><pre class="prettyprint">#========================================================================================
 
-    #this is a comment
-    x-header-example  : thisIsThe.Value           #this is an inline comment
-    x-header-example2 : an other text with spaces #this is an inline comment
-    x-header-example3 : text with %&£ $imbol$     #this is an inline comment
+x-multiline-js: ${
+//split header def on multiple line
+&quot;aaaaaaa&quot;
+}
 
-    #base64 encoding"  
-	X-B64      : ${b64('foo')}        
-    #md5
-	X-MD5      : ${md5('Message')}    
-    #sha1
-	X-SHA1     : ${sha1('Message')}   
-    #sha256
-	X-SHA256   : ${sha256('Message')} 
-    #encode an URI
-	X-EcodeURI : ${encodeURIComponent('Message')} 
-    #current path in URI
-	X-PathURI  : ${getPathname('Message')}        
-    #current search in URI
-	X-SearchURI: ${getSearch('Message')}       
+#========================================================================================
 
-<p>You can also use the internal function  crypto("sha1","plain text"); where the first argument can vary between:
-<ul> 
-<li>'md2'   </li>
-<li>'md5'   </li>
-<li>'sha1'  </li>
-<li>'sha256'</li>
-<li>'sha384'</li>
-<li>'sha512'</li>
-</ul>
-</p>
-    
-</pre>
-  <h2>Regular Expression Support ==new==</h2>
+X-PATH   : ${
+            encodeURIComponent(
+              &quot;&quot;+getPathname()+getSearch()
+          ) }</pre><pre class="prettyprint">#========================================================================================
 
-<p>
-You can use the "@" character at the first char in a line in order to specify a regular expression set of header. Since this line all the headers comes above is activated only for the matching URI.
-</p>
-<pre>
-x-all-0 : header-value      //no @modification so is always enabled
+#this is a comment
+x-header-example  : thisIsThe.Value           #this is an inline comment
+x-header-example2 : an other text with spaces #this is an inline comment
+x-header-example3 : text with %&amp;£ $imbol$     #this is an inline comment
+</pre><p><strong>Crypto functionalities</strong> </p><pre class="prettyprint">X-MD5    : ${md5(&#x27;message&#x27;)}
+X-SHA1   : ${sha1(&#x27;message&#x27;)}
+X-SHA256 : ${sha256(&#x27;message&#x27;)}</pre><p><strong>Example </strong> </p><pre class="prettyprint">Accept-Charset:            # Remove this header
+Accept-Language:fr         # Change to &quot;fr&quot; for every request
+@.*gif                     # Work on any http://*.gif
+Accept:*/*                 # Change Accept request to */*</pre><p><p align="justify"> <p>You can also use the internal function  crypto(&quot;sha1&quot;,&quot;plain text&quot;); where the first argument can vary between:   <ul><li>&#x27;md2&#x27;   </li><li>&#x27;md5&#x27;   </li><li>&#x27;sha1&#x27;  </li><li>&#x27;sha256&#x27; </li><li>&#x27;sha384&#x27; </li><li>&#x27;sha512&#x27; </li></ul></p><p></p> </p> </p><p><strong>Regular Expression Support</strong> ==new== <p align="justify"> You can use the &quot;@&quot; character at the first char in a line in order to specify a  regular expression set of header. Since this line all the headers comes above is activated <strong>only</strong> for the matching URI. </p> </p><pre class="prettyprint">x-all-0 : header-value      //no @modification so is always enabled
 @serverURI_1
 x-all-1a : header-value     //is taken in account only for server with serverURI_1 
 x-all-1b : header-value     //is taken in account only for server with serverURI_1 
 @serverURI_2
-x-all-2 : header-value      //is taken in account only for server with serverURI_2
-
-x-all-0 : header-value      //no @modification so is always enabled
+x-all-2 : header-value      //is taken in account only for server with serverURI_2</pre><pre class="prettyprint">x-all-0 : header-value      //no @modification so is always enabled
 x-all-1 : header-value
 @^https                     //the following two headers is enabled only for HTTPS
 x-all-1a : header-value     
 x-all-1b : header-value     
-@prod                       //the following headers is enabled only for URI with "prod" inside
-x-all-2 : header-value      
-</pre>
-<h2>Move from Modify Headers</h2>
-<p>
-If you are already using modify headers you can simply switch to this plugin just with the following steps :
-</p>
-<ul>
-   <ol>1. enable all the headers inside the modify headers (Enable All Button)</ol>
-   <ol>2. open a site for header visualization ( http://w3bt00l.tk/ or optimized for Header Tool https://w3bt00l.appspot.com/ht)</ol>
-   <ol>3. cut&past in the the header in the text area </ol>
-</ul>
 
+
+@prod                       //the following headers is enabled only for URI with &quot;prod&quot; inside
+x-all-2 : header-value      </pre><h2><a name="Move_from_Modify_Headers"></a>Move from Modify Headers<a href="#Move_from_Modify_Headers" class="section_anchor"></a></h2><p>If you are already using modify headers you can simply switch to this plugin just with the following steps : <ol><li>enable all the headers inside the modify headers (Enable All Button) </li><li>open a site for header visualization ( <a href="http://w3bt00l.tk/" rel="nofollow">http://w3bt00l.tk/</a> or optimized for Header Tool <a href="https://w3bt00l.appspot.com/ht" rel="nofollow">https://w3bt00l.appspot.com/ht</a>) </li><li>cut&amp;past in the the header in the text area </li></ol></p>
 </body>
 
 </html>
