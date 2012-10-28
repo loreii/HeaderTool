@@ -42,7 +42,7 @@ if (typeof (headertool) == "undefined") {
 			supportstrings                        : null,
                         window_main                           : null,  // current    window
                         window_about                          : null,  // about+help window
-                        logEnable                             : false,  
+                        logEnable                             : true,  
                         initialized                           : false,
                         apply_headers                         : false,
                       
@@ -224,9 +224,9 @@ if (typeof (headertool) == "undefined") {
                                         headertool.supportstrings.data = window.document.getElementById("headerText").value;
                                         
                                         headertool.preferencies.setComplexValue("editor", 
-                                                        Components.interfaces.nsISupportsString, str);
+                                                        Components.interfaces.nsISupportsString, headertool.supportstrings);
                                         
-                                        headertool.setCode( str.data );
+                                        headertool.setCode( headertool.supportstrings.data );
                                         
                                         headertool.LOG("Preferencies saving .. [done]");
                                 }catch(ee){
