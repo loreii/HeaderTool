@@ -6,29 +6,33 @@
 <page id="headertoolSidebar" title="&headertoolSidebar.label;"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   
-  <script src="overlay.js"/>
+  <script src="chrome://headertool/content/ff-overlay.js"/>
  
   
   <vbox>
       <hbox style="border-top: 1px solid black; border-bottom: 1px solid black;">
 
-          <button label="ON" accesskey="A" id="headertool_button_apply"
-                oncommand="headertool.parser();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_clear').setAttribute('disabled', 'false');"
-                crop="end"   
-                tooltiptext="Click here to apply the current headers in the editor"
-                persist="disabled"        />
-          <button label="OFF" accesskey="C" id="headertool_button_clear" 
-                disabled="true"
-                oncommand="headertool.clear();headertool.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_apply').setAttribute('disabled', 'false');"
-                crop="end" 
-                tooltiptext="Click here to restore the default headers" 
-                persist="disabled"        />
+          <button label="ON" 
+                  accesskey="A" 
+                  id="headertool_button_apply"
+                  oncommand="HeaderToolChrome.BrowserOverlay.parser();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_clear').setAttribute('disabled', 'false');"
+                  crop="end"   
+                  tooltiptext="Click here to apply the current headers in the editor"
+                  persist="disabled"        />
+          <button label="OFF" 
+                  accesskey="C" 
+                  id="headertool_button_clear" 
+                  disabled="true"
+                  oncommand="HeaderToolChrome.BrowserOverlay.clear();HeaderToolChrome.BrowserOverlay.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_apply').setAttribute('disabled', 'false');"
+                  crop="end" 
+                  tooltiptext="Click here to restore the default headers" 
+                  persist="disabled"        />
           
       </hbox>
-      <checkbox id="cjs" oncommand="headertool.setCountinuosJS(this.checked);" label="countinuos JS" checked="false"/>      
+      <checkbox id="cjs" oncommand="HeaderToolChrome.BrowserOverlay.setCountinuosJS(this.checked);" label="countinuos JS" checked="false"/>      
   </vbox>
   
-  <textbox flex="1" id="headerText" multiline="true"  persist="saved" wrap="off" oninput="headertool.savePref()" />
+  <textbox flex="1" id="headerText" multiline="true"  persist="saved" wrap="off" oninput="HeaderToolChrome.BrowserOverlay.savePref()" />
 
   
 </page>

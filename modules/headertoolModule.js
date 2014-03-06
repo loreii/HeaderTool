@@ -33,8 +33,9 @@ headertoolModule.HeaderTool = {
         cjs                       :                 false,
         
         LOG:function (text){
-              //var consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
-              //consoleService.logStringMessage(text);
+              const consoleJSM = Components.utils.import("resource://gre/modules/devtools/Console.jsm", {});   
+              let console = consoleJSM.console; 
+              console.log(text); 
         },
 
         setText:function (s){
@@ -141,6 +142,7 @@ headertoolModule.HeaderTool = {
           
           
           //===========================================================================
+
              jsEngine:function(text){
 
                                 var jsStart;
