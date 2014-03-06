@@ -7,14 +7,14 @@
 
     
   <commandset id="mainCommandSet">
-          <command id="headertool_cmd_save_as"             oncommand="headertool.saveAsCurrentConfiguration();"/>
+          <!--command id="headertool_cmd_save_as"          oncommand="headertool.saveAsCurrentConfiguration();"/-->
           <command id="headertool_cmd_save"                oncommand="headertool.saveCurrentConfiguration();"  />
-          <command id="headertool_cmd_load"                oncommand="headertool.loadCurrentConfiguration();"  />
+          <!--command id="headertool_cmd_load"             oncommand="headertool.loadCurrentConfiguration();"  /-->
           <command id="headertool_cmd_info"                oncommand="headertool.openAbout();"		       />
           <command id="headertool_cmd_show"                oncommand="toggleSidebar('headertool_viewSidebar');"/>
           <!--command id="headertool_cmd_on"               oncommand="headertool.on();"/>
           <command id="headertool_cmd_off"                 oncommand="headertool.off();"/-->
-          <command id="headertool_cmd_tab"                 oncommand="headertool.window_main.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
+          <command id="headertool_cmd_tab"                 oncommand="window.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
   </commandset>        
   
   
@@ -24,9 +24,6 @@
 
   <keyset id="mainKeyset">
     <key id="headertool_key_openSidebar"                     keycode="VK_F4"     command="headertool_viewSidebar"/>
-    <!--key id="headertool_key_on"          modifiers="alt"  keycode="o"     command="headertool_cmd_on"/>
-    <key id="headertool_key_off"         modifiers="alt"     keycode="p"     command="headertool_cmd_off"/-->
-    
   </keyset>
 
   <statusbar id="status-bar">
@@ -41,9 +38,9 @@
             <menupopup id="headertool_status_bar">
               <menuitem  key="key_openSidebar_headertool" observes="headertool_viewSidebar" />
 	      <menuitem label="&headertoolSidebar.openin_tab;"  value=""   command="headertool_cmd_tab"/>
-              <!-- menuitem label="&headertoolSidebar.saveas;" disabled="true" command="cms_save_as"/>
+              <!--menuitem label="&headertoolSidebar.saveas;" disabled="true" command="cms_save_as"/!-->
               <menuitem label="&headertoolSidebar.save;"   disabled="true" command="headertool_cmd_save"/>
-              <menuitem label="&headertoolSidebar.load;"   disabled="true" command="headertool_cmd_load"/ -->
+              <!--menuitem label="&headertoolSidebar.load;"   disabled="true" command="headertool_cmd_load"/-->
               <menuseparator/>
               <menuitem label="&headertoolSidebar.info;"        value=""   command="headertool_cmd_info"/>
               <menuseparator/>
