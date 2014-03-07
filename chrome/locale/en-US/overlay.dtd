@@ -1,9 +1,17 @@
-<!ENTITY headertoolSidebar.label       "Header Tool"     >
-<!ENTITY headertoolSidebar.saveas      "Save As .."      >
-<!ENTITY headertoolSidebar.save        "Save .."         >
-<!ENTITY headertoolSidebar.load        "Load .."         >
-<!ENTITY headertoolSidebar.info        "Info .."         >
-<!ENTITY headertoolSidebar.show        "Show Header Tool">
-<!ENTITY headertoolSidebar.openin_tab  "Open in Tab"     >
+<!ENTITY headertool_label       "Header Tool"     >
+<!ENTITY headertool_saveas      "Save As .."      > 
+<!ENTITY headertool_save        "Save .."         >
+<!ENTITY headertool_load        "Load .."         >
+<!ENTITY headertool_info        "Help .."         >
+<!ENTITY headertool_show        "Show Header Tool">
+<!ENTITY headertool_openin_tab  "Open in Tab"     >
+
+<!ENTITY headertool_label_wget         "wget">
+<!ENTITY headertool_accesskey_wget     "w">
+<!ENTITY headertool_tooltip_wget       "Click here copy headers in clipboard with WGET syntax">
+
+<!ENTITY headertool_label_curl         "curl">
+<!ENTITY headertool_accesskey_curl     "u">
+<!ENTITY headertool_tooltip_curl       "Click here copy headers in clipboard with CURL syntax">
 <!--ENTITY headertoolToolbar.name  "example">
 <!ENTITY headertoolToolbar.label "This is an example toolbar. You can hide it under View &gt; toolbars &gt; &headertoolToolbar.name;"-->

@@ -112,7 +112,7 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
                                         }catch(exx){
                                             txt = document.getElementById("sidebar").contentDocument.getElementById("headerText")
                                         }
-                                        this.text=value;
+                                        this.text=value; 
                                         return txt.value=value;
                                 }catch(exx){
                                         
@@ -124,6 +124,8 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
                          *  DISPLAY THE ABOUT WINDOW
                          * ===================================================================================== */
                         openAbout : function() {
+                        		this.LOG("openAbout window >> "+window);
+
                                 if(this.window_about == null || this.window_about.closed){
                                         this.window_about = window.open("chrome://headertool/content/about.html",
                                                         "Header Tool About", "resizable=yes,scrollbars=yes,status=yes,width=520,height=230");
@@ -131,7 +133,13 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
                                         this.window_about.focus();
                                 };
                         },
-
+						/* ===================================================================================== *
+                         *  OPEN NEW TAB 
+                         * ===================================================================================== */
+                        openTab : function() {
+                        	var tabs = require("sdk/tabs");
+							tabs.open('chrome://headertool/content/ff-sidebar.xul');
+                        },
 
                         /* ===================================================================================== *
                          *  SAVED HEADER FUNCTIONS

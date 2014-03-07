@@ -19,9 +19,9 @@
 <!-- 
     MENU TOOL BAR
       -->
-<menupopup id="menu_ToolsPopup">
+  <menupopup id="menu_ToolsPopup">
     <menu id="headertool_menu_tools" 
-          label="Header tool"
+          label="&headertool_label;"
           accesskey=""
           insertbefore="devToolsEndSeparator"
           image="chrome://headertool/skin/Crocodile_small.png">
@@ -29,33 +29,35 @@
           <menupopup id="headertool_status_bar">
             <menuitem key="key_openSidebar_headertool" 
                       observes="headertool_viewSidebar" />
-            <menuitem label="&headertoolSidebar.openin_tab;"  
+            <menuitem label="&headertool_openin_tab;"  
                       value=""   
-                      command="window.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
-            <menuitem label="&headertoolSidebar.save;"      
+                      command="HeaderToolChrome.BrowserOverlay.openTab();"/>
+            <menuitem label="&headertool_save;"      
                       disabled="true" 
                       command="HeaderToolChrome.BrowserOverlay.saveCurrentConfiguration();"/>
             <menuseparator/>
-            <menuitem label="&headertoolSidebar.info;"        
+            <menuitem label="&headertool_info;"        
                        value=""   
                        command="HeaderToolChrome.BrowserOverlay.openAbout();"/>
             <menuseparator/>
-            <menuitem label="WGET" accesskey="W" 
+            <menuitem label="&headertool_label_wget;" accesskey="&headertool_accesskey_wget;" 
                       disabled="false"
-                      oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=');alert('Headers is now in your clipboard with wget shape.')"
+                      oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=');\
+                      alert('Headers is now in your clipboard with wget shape.')"
                       crop="end" 
-                      tooltiptext="Click here copy headers in clipboard with WGET syntax" 
+                      tooltiptext="&headertool_tooltip_wget;" 
                       persist="disabled"        />
-            <menuitem label="CURL" accesskey="U" 
+            <menuitem label="&headertool_label_curl;" accesskey="&headertool_accesskey_curl;" 
                   disabled="false"
-                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ');alert('Headers is now in your clipboard with curl shape.')"
+                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ');\
+                  alert('Headers is now in your clipboard with curl shape.')"
                   crop="end" 
-                  tooltiptext="Click here copy headers in clipboard with CURL syntax" 
+                  tooltiptext="&headertool_tooltip_curl;"
                   persist="disabled"/>          
       
-          </menupopup> 
-    </menu>
-</menupopup>      
+          </menupopup>  
+    </menu> 
+  </menupopup>      
 <!-- 
     STATUS BAR 
       -->
@@ -70,29 +72,31 @@
           <menupopup id="headertool_status_bar">
             <menuitem key="key_openSidebar_headertool" 
                       observes="headertool_viewSidebar" />
-	          <menuitem label="&headertoolSidebar.openin_tab;"  
+	          <menuitem label="&headertool_openin_tab;"  
                       value=""   
                       command="window.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
-            <menuitem label="&headertoolSidebar.save;"      
+            <menuitem label="&headertool_save;"      
                       disabled="true" 
                       command="HeaderToolChrome.BrowserOverlay.saveCurrentConfiguration();"/>
             <menuseparator/>
-            <menuitem label="&headertoolSidebar.info;"        
+            <menuitem label="&headertool_info;"        
                        value=""   
                        command="HeaderToolChrome.BrowserOverlay.openAbout();"/>
             <menuseparator/>
-            <menuitem label="WGET" accesskey="W" 
+            <menuitem label="&headertool_label_wget;" accesskey="&headertool_accesskey_wget;" 
 		                  disabled="false"
-		                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=',HeaderToolChrome.BrowserOverlay.getCode());alert('Headers is now in your clipboard with wget shape.')"
+		                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=',HeaderToolChrome.BrowserOverlay.getCode());\
+                      alert('Headers is now in your clipboard with wget shape.')"
 		                  crop="end" 
-		                  tooltiptext="Click here copy headers in clipboard with WGET syntax" 
+		                  tooltiptext="&headertool_tooltip_wget;"
 		                  persist="disabled"        />
-	          <menuitem label="CURL" accesskey="U" 
-		              disabled="false"
-		              oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ',HeaderToolChrome.BrowserOverlay.getCode());alert('Headers is now in your clipboard with curl shape.')"
-		              crop="end" 
-	               	tooltiptext="Click here copy headers in clipboard with CURL syntax" 
-		              persist="disabled"/>          
+	          <menuitem label="&headertool_label_curl;" accesskey="&headertool_accesskey_curl;" 
+		                  disabled="false"
+		                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ',HeaderToolChrome.BrowserOverlay.getCode());\
+                      alert('Headers is now in your clipboard with curl shape.')"
+		                  crop="end" 
+	               	    tooltiptext="&headertool_tooltip_curl;"
+		                  persist="disabled"/>          
 	    
 	        </menupopup>
       </toolbarbutton>
@@ -103,12 +107,12 @@
       -->
   <broadcasterset id="mainBroadcasterSet">
     <broadcaster id="headertool_viewSidebar"
-                 label="&headertoolSidebar.label;"
+                 label="&headertool_label;"
                  autoCheck="false"
                  type="checkbox"
                  group="sidebar"
                  sidebarurl="chrome://headertool/content/ff-sidebar.xul"
-                 sidebartitle="&headertoolSidebar.label;"
+                 sidebartitle="&headertool_label;"
                  oncommand="toggleSidebar('headertool_viewSidebar');" />
   </broadcasterset>
 

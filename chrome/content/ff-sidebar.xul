@@ -3,7 +3,7 @@
 <?xml-stylesheet href="chrome://headertool/skin/ht.css" type="text/css"?>
 <!DOCTYPE page SYSTEM "chrome://headertool/locale/overlay.dtd">
 
-<page id="headertoolSidebar" title="&headertoolSidebar.label;"
+<page id="headertoolSidebar" title="&headertool_label;"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   
   <script src="chrome://headertool/content/ff-overlay.js"/>
@@ -18,7 +18,7 @@
                   oncommand="HeaderToolChrome.BrowserOverlay.parser();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_clear').setAttribute('disabled', 'false');"
                   crop="end"   
                   tooltiptext="Click here to apply the current headers in the editor"
-                  persist="disabled"        />
+                  persist="disabled"        /> 
           <button label="OFF" 
                   accesskey="C" 
                   id="headertool_button_clear" 
