@@ -31,26 +31,24 @@
                       observes="headertool_viewSidebar" />
             <menuitem label="&headertool_openin_tab;"  
                       value=""   
-                      command="HeaderToolChrome.BrowserOverlay.openTab();"/>
+                      oncommand="HeaderToolChrome.BrowserOverlay.openTab();"/>
             <menuitem label="&headertool_save;"      
                       disabled="true" 
-                      command="HeaderToolChrome.BrowserOverlay.saveCurrentConfiguration();"/>
+                      oncommand="HeaderToolChrome.BrowserOverlay.saveCurrentConfiguration();"/>
             <menuseparator/>
             <menuitem label="&headertool_info;"        
                        value=""   
-                       command="HeaderToolChrome.BrowserOverlay.openAbout();"/>
+                       oncommand="HeaderToolChrome.BrowserOverlay.openAbout();"/>
             <menuseparator/>
             <menuitem label="&headertool_label_wget;" accesskey="&headertool_accesskey_wget;" 
                       disabled="false"
-                      oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=');\
-                      alert('Headers is now in your clipboard with wget shape.')"
+                      oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=');alert('Headers is now in your clipboard with wget shape.')"
                       crop="end" 
                       tooltiptext="&headertool_tooltip_wget;" 
                       persist="disabled"        />
             <menuitem label="&headertool_label_curl;" accesskey="&headertool_accesskey_curl;" 
                   disabled="false"
-                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ');\
-                  alert('Headers is now in your clipboard with curl shape.')"
+                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ');alert('Headers is now in your clipboard with curl shape.')"
                   crop="end" 
                   tooltiptext="&headertool_tooltip_curl;"
                   persist="disabled"/>          
@@ -74,26 +72,24 @@
                       observes="headertool_viewSidebar" />
 	          <menuitem label="&headertool_openin_tab;"  
                       value=""   
-                      command="window.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
+                      oncommand="window.gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');"/>
             <menuitem label="&headertool_save;"      
                       disabled="true" 
-                      command="HeaderToolChrome.BrowserOverlay.saveCurrentConfiguration();"/>
+                      oncommand="HeaderToolChrome.BrowserOverlay.saveCurrentConfiguration();"/>
             <menuseparator/>
             <menuitem label="&headertool_info;"        
                        value=""   
-                       command="HeaderToolChrome.BrowserOverlay.openAbout();"/>
+                       oncommand="HeaderToolChrome.BrowserOverlay.openAbout();"/>
             <menuseparator/>
             <menuitem label="&headertool_label_wget;" accesskey="&headertool_accesskey_wget;" 
 		                  disabled="false"
-		                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=',HeaderToolChrome.BrowserOverlay.getCode());\
-                      alert('Headers is now in your clipboard with wget shape.')"
+		                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('--header=',HeaderToolChrome.BrowserOverlay.getCode());alert('Headers is now in your clipboard with wget shape.')"
 		                  crop="end" 
 		                  tooltiptext="&headertool_tooltip_wget;"
 		                  persist="disabled"        />
 	          <menuitem label="&headertool_label_curl;" accesskey="&headertool_accesskey_curl;" 
 		                  disabled="false"
-		                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ',HeaderToolChrome.BrowserOverlay.getCode());\
-                      alert('Headers is now in your clipboard with curl shape.')"
+		                  oncommand="HeaderToolChrome.BrowserOverlay.serialize('-H ',HeaderToolChrome.BrowserOverlay.getCode());alert('Headers is now in your clipboard with curl shape.')"
 		                  crop="end" 
 	               	    tooltiptext="&headertool_tooltip_curl;"
 		                  persist="disabled"/>          

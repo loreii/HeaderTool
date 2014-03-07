@@ -136,9 +136,11 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
 						/* ===================================================================================== *
                          *  OPEN NEW TAB 
                          * ===================================================================================== */
+                         /** Safe only from Menu! */
                         openTab : function() {
-                        	var tabs = require("sdk/tabs");
-							tabs.open('chrome://headertool/content/ff-sidebar.xul');
+                        	//valid only from Code running in Firefox's global ChromeWindow, common for extensions that 
+                        	//overlay into browser.xul, can access the tabbrowser element using the global variable gBrowser.
+							gBrowser.addTab('chrome://headertool/content/ff-sidebar.xul');
                         },
 
                         /* ===================================================================================== *
