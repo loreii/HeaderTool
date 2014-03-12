@@ -29,6 +29,7 @@ Components.utils.import("resource://headertool/common.js");
 headertoolModule.HeaderTool = {
           
         headerMap                 :                 new Array(),
+        inheaderMap               :                 new Array(),
         text                      :                 null,
         cjs                       :                 false,
         
@@ -61,6 +62,7 @@ headertoolModule.HeaderTool = {
         },
 
         observe: function(subject, topic, data)  {
+          this.LOG(" topic : " + topic + " subject: "+subject);
               if (topic == "http-on-modify-request") {
 
                   this.LOG("http-on-modify-request : (" + subject + ") mod request");
@@ -85,16 +87,56 @@ headertoolModule.HeaderTool = {
                                   var test=patt.test(currURL);
                                   this.LOG("regexp test "+i+":"+test);
                     
-                                  if(test)
+                                  if(test){
                                       for (var e in headerMap[i]) {
-                                        this.LOG('key is: ' + e + ', value is: ' + headerMap[i][e]);
+                                        this.LOG('OUT key is: ' + e + ', value is: ' + headerMap[i][e]);
                                         httpChannel.setRequestHeader(e, headerMap[i][e], false);
                                       }
-
+                                     
+                                  }
                           }
-                  }catch(ex){}          
+                  }catch(ex){
+                    this.LOG("exception in observe :"+ex);
+                  }          
                   return;
-              }
+            
+              }else if (topic == "http-on-examine-response") {
+                  this.LOG("http-on-examine-response : (" + subject + ") mod request");
+
+                  var httpChannel = subject.QueryInterface(Components.interfaces.nsIHttpChannel);
+                  var currURL = httpChannel.URI.spec
+
+                  try{
+                          this.LOG("apply headers on URL : "+currURL);
+                          this.LOG("cjs    : "+this.cjs);
+                          if(this.cjs){
+                            this.LOG("reload js  \n\n"+this.text);
+                            try{
+                              this.parser(this.text);
+                            }catch(e){
+                              this.LOG("reload js ko "+e);
+                            }
+                          }
+                  
+                          for (var i in inheaderMap) {
+                                  var patt=new RegExp(i,"i");
+                                  var test=patt.test(currURL);
+                                  this.LOG("regexp test "+i+":"+test);
+                    
+                                  if(test){
+                                   
+                                      for (var e in inheaderMap[i]) {
+                                        this.LOG('IN key is: ' + e + ', value is: ' + inheaderMap[i][e]);
+                                        httpChannel.setResponseHeader("AAA", "AAAA", false);
+                                        httpChannel.setResponseHeader(e, inheaderMap[i][e], false);
+                                      }
+                                  }
+                          }
+                  }catch(ex){
+                    this.LOG("exception in observe :"+ex);
+                  }          
+                  return;
+      }
 
 
               if (topic == "profile-after-change") {
@@ -105,6 +147,8 @@ headertoolModule.HeaderTool = {
                                     .getService(Components.interfaces.nsIObserverService);
 
                   os.addObserver(this, "http-on-modify-request", false);
+                  os.addObserver(this, "http-on-examine-response", false);
+
                   return;
               }
           },
@@ -115,27 +159,29 @@ headertoolModule.HeaderTool = {
                             .getService(Components.interfaces.nsIObserverService);
                                 
             c.addObserver(this, "http-on-modify-request", false);
+            c.addObserver(this, "http-on-examine-response", false);
+
             this.LOG("register done");
             return "ok";
           },
 
           unregister: function() {
             this.observerService().removeObserver(this, "http-on-modify-request");
+            this.observerService().removeObserver(this, "http-on-examine-response");
+
           },
         
           /* ================================ *
            * Map handling functions
            * ================================ */ 
-          put: function(key,value){
-            headerMap[key]=value;
-          },
-          
-          remove: function(key){
-            delete headerMap[key];
+          put: function(key,out,inp){
+            headerMap  [key]=out;
+            inheaderMap[key]=inp;
           },
           
           clear: function(){
-            headerMap= new Array();
+            headerMap  = new Array();
+            inheaderMap= new Array();
           },
           
           
@@ -223,6 +269,7 @@ headertoolModule.HeaderTool = {
                                 var lines = text.split("\n"); 
 
                                 var map=new Array();
+                                var inmap=new Array();
                                 var regexp="^.";
 
                                 for(var i in lines){
@@ -232,8 +279,9 @@ headertoolModule.HeaderTool = {
 
                                         //a regexp is applied
                                         if(lines[i].charAt(0)=='@'){        
-                                                this.put(regexp,map);
+                                                this.put(regexp,map,inmap);
                                                 map=new Array();
+                                                inmap=new Array();
                                                 regexp=lines[i].substring(1);
                                                 continue;
                                         }
@@ -267,15 +315,28 @@ headertoolModule.HeaderTool = {
                                                                 header+=":"+com[i];
                                                         }
                                                 }
-
-                                                map[com[0]]=header;
+                                                
+                                                if(com[0].charAt(0)=='<' && com[0].charAt(1)=='>'){
+                                                  this.LOG("BOTH  : "+com[0]+":"+header);  
+                                                  map[com[0].substring(2)]=header;
+                                                  inmap[com[0].substring(2)]=header;
+                                                }else if(com[0].charAt(0)=='<'){
+                                                  this.LOG("IN    : "+com[0]+":"+header);  
+                                                  inmap[com[0].substring(1)]=header;
+                                                }else  if(com[0].charAt(0)=='>'){
+                                                  this.LOG("OUT   : "+com[0]+":"+header);  
+                                                  map[com[0].substring(1)]=header;
+                                                }else{
+                                                  this.LOG("DEF   : "+com[0]+":"+header);  
+                                                  map[com[0]]=header;
+                                                }
                                         } catch (anError) {
                                                 dump("ERROR: " + anError);
                                         }
 
                                 }
 
-                                this.put(regexp,map);
+                                this.put(regexp,map,inmap);
 
                         },
                         /**
