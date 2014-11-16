@@ -226,8 +226,8 @@ headertoolModule.HeaderTool = {
                                 var regexp="^.";
 
                                 for(var i in lines){
-                                        //skip line starting as comment
-                                        if(lines[i].lenght<2 || lines[i].charAt(0)=='#')
+                                        //skip line starting as comment 
+                                        if(lines[i].length<2 || lines[i].charAt(0)=='#') //warren-bank fix on length
                                                 continue;
 
                                         //a regexp is applied
