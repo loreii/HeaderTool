@@ -94,6 +94,24 @@ activated *only* for the matching URI.
     x-all-2 : header-value      
     #========================================================================================
 
+Misc functionalities
+--------------------------
+
+    b64            :${ b64()}
+    href           :${ href()}
+    hostname       :${ hostname()}
+    pathname       :${ pathname()}
+    previous       :${ previous()} //history previous   
+    next           :${ next()}     //history next
+    search         :${ search()}
+    md5            :${ md5()}
+    sha1           :${ sha1("sample")}
+    sha256         :${ sha256("sample")}
+    crypto         :${ crypto("sha512","sample")}
+    getChecksumType:${ getChecksumType()}
+    getPathname    :${ getPathname()}
+    getSearch      :${ getSearch()}
+
 Move from Modify Headers
 ------------------------
 If you are already using modify headers you can simply switch to this plugin just with the following steps :
