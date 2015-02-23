@@ -162,7 +162,8 @@ headertoolModule.HeaderTool = {
                                 s.crypto                 = headertoolModule.HeaderTool.crypto;
                                 s.getChecksumType        = headertoolModule.HeaderTool.getChecksumType;
                                 s.getPathname            = headertoolModule.HeaderTool.getPathname;
-                                s.getSearch              = headertoolModule.HeaderTool.getSearch;        
+                                s.getSearch              = headertoolModule.HeaderTool.getSearch;  
+                                s.getElementsByTagName   = headertoolModule.HeaderTool.getElementsByTagName;
                                 
 
                                 while ((jsStart=text.indexOf("${")) > -1){ 
@@ -331,19 +332,7 @@ headertoolModule.HeaderTool = {
                         },
 
 
-                        href:function(){
-                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.href;
-                        },
-
-                        hostname:function(){
-                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.hostname;
-                        },
-                        pathname:function(){
-                                var win = headertoolModule.HeaderTool.getWin(); return win.content.location.pathname;
-                        },
-                        search:function(){
-                                var win = headertoolModule.HeaderTool.getWin(); return win.content.location.search;
-                        },
+                       
                         previous:function(){
                                 var win = headertoolModule.HeaderTool.getWin(); return win.history.previous;
                         },
@@ -366,14 +355,72 @@ headertoolModule.HeaderTool = {
                                 return headertoolModule.HeaderTool.crypto("sha256",x);
                         },
 
+                        getElementsByTagName:function(){
+                                var win = headertoolModule.HeaderTool.getWin(); return win.content.document.getElementsByTagName(x);
+                        },
+
+                       /**Gets the name of the window.*/
+                        windowName:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.name;
+                        },
+
+                        /*
+                         *  LOCATIONS FUNCTIONS
+                         */
+
+                        /**Is a DOMString containing the whole URL.*/
+                        href:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.href;
+                        },
+                        /**Is a DOMString containing the protocol scheme of the URL, including the final ':'.*/
+                        protocol:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.protocol;
+                        },
+                        /**Is a DOMString containing the host, that is the hostname, a ':', and the port of the URL.*/
+                        host:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.host;
+                        },
+                        /**Is a DOMString containing the domain of the URL.*/
+                        hostname:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.hostname;
+                        },
+                        /**Is a DOMString containing the port number of the URL.*/
+                        port:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.port;
+                        },
+                        /**Is a DOMString containing an initial '/' followed by the path of the URL.*/
+                        pathname:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.pathname;
+                        },
+                        /**Is a DOMString containing a '?' followed by the parameters of the URL.*/
+                        search:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.search;
+                        },
+                        /**Is a DOMString containing a '#' followed by the fragment identifier of the URL.*/
+                        hash:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.hash;
+                        },
+                        /**Is a DOMString containing the username specified before the domain name.*/
+                        username:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.username;
+                        },
+                        /**Is a DOMString containing the password specified before the domain name.*/
+                        password:function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.password;
+                        },
+                        /**Returns a DOMString containing the canonical form of the origin of the specific location.*/
+                        origin :function(){
+                           var win = headertoolModule.HeaderTool.getWin(); return win.content.location.origin ;
+                        },
+
+                        /**Left overload for retrocompattibility*/
                         getPathname:function(){
                                 var win = headertoolModule.HeaderTool.getWin(); return win.content.location.pathname;
                         },
-
+                        /**Left overload for retrocompattibility*/
                         getSearch:function(){
                                 var win = headertoolModule.HeaderTool.getWin(); return win.content.location.search;
                         },
-                        
 
 
 
