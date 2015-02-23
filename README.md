@@ -116,6 +116,6 @@ Move from Modify Headers
 ------------------------
 If you are already using modify headers you can simply switch to this plugin just with the following steps :
 - enable all the headers inside the modify headers Enable All Button
-- open a site for header visualization *http://w3bt00l.tk/* or optimized for Header Tool *https://w3bt00l.appspot.com/ht*
+- open a site for header visualization *https://w3bt00l.appspot.com/ht*
 - cut&past in the the header in the text area
 
