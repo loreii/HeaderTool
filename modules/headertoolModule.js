@@ -61,9 +61,14 @@ headertoolModule.HeaderTool = {
         },
 
         observe: function(subject, topic, data)  {
-              if (topic == "http-on-modify-request") {
+              if(topic == "http-on-examine-response"){
+                //WiP: expansion poin for future release modify the full HTTP incoming rq
+                return true;
+              }
 
-                  this.LOG("http-on-modify-request : (" + subject + ") mod request");
+              if (topic == "http-on-modify-request" ) {
+
+                  this.LOG(topic+": (" + subject + ") mod request");
 
                   var httpChannel = subject.QueryInterface(Components.interfaces.nsIHttpChannel);
                   var currURL = httpChannel.URI.spec
@@ -74,7 +79,7 @@ headertoolModule.HeaderTool = {
                           if(this.cjs){
                             this.LOG("reload js  \n\n"+this.text);
                             try{
-                              this.parser(this.text);
+                              this.parser(this.text,httpChannel);
                             }catch(e){
                               this.LOG("reload js ko "+e);
                             }
@@ -85,15 +90,30 @@ headertoolModule.HeaderTool = {
                                   var test=patt.test(currURL);
                                   this.LOG("regexp test "+i+":"+test);
                     
-                                  if(test)
+                                  if(test){
                                       for (var e in headerMap[i]) {
-                                        this.LOG('key is: ' + e + ', value is: ' + headerMap[i][e]);
-                                        httpChannel.setRequestHeader(e, headerMap[i][e], false);
+                                       
+                                        //note: header starting with ">" and "<" cannot be set because now have a semantic
+                                        if( e.charAt(0) == '<' ){
+                                            //trim the extra flow command
+                                            this.LOG('setResponseHeader < ' + e + ', value is: ' + headerMap[i][e]);
+                                            httpChannel.setResponseHeader(e.substring(1), headerMap[i][e], false);
+                                        }else if( e.charAt(0) == '>' ){
+                                            //trim the extra flow command
+                                            this.LOG('setRequestHeader > ' + e + ', value is: ' + headerMap[i][e]);
+                                            httpChannel.setRequestHeader(e.substring(1), headerMap[i][e], false);
+                                        }else{
+                                            // any char other char just the default as rq
+                                            this.LOG('setRequestHeader > ' + e + ', value is: ' + headerMap[i][e]);
+                                            httpChannel.setRequestHeader(e, headerMap[i][e], false);
+                                        }
+                                        
                                       }
+                                  }     
 
                           }
                   }catch(ex){}          
-                  return;
+                  return true;
               }
 
 
@@ -102,25 +122,28 @@ headertoolModule.HeaderTool = {
                   this.LOG("profile-after-change");
 
                   var os = Components.classes["@mozilla.org/observer-service;1"]
-                                    .getService(Components.interfaces.nsIObserverService);
+                                     .getService(Components.interfaces.nsIObserverService);
 
                   os.addObserver(this, "http-on-modify-request", false);
-                  return;
+                  //os.addObserver(this, "http-on-examine-response", false);
+                  return true;
               }
           },
 
           register: function()  {
             this.LOG("register");
             var c = Components.classes["@mozilla.org/observer-service;1"]
-                            .getService(Components.interfaces.nsIObserverService);
+                              .getService(Components.interfaces.nsIObserverService);
                                 
             c.addObserver(this, "http-on-modify-request", false);
+            //c.addObserver(this, "http-on-examine-response", false);
             this.LOG("register done");
             return "ok";
           },
 
           unregister: function() {
             this.observerService().removeObserver(this, "http-on-modify-request");
+            //this.observerService().removeObserver(this, "http-on-examine-response");
           },
         
           /* ================================ *
@@ -143,7 +166,7 @@ headertoolModule.HeaderTool = {
           
           //===========================================================================
 
-             jsEngine:function(text){
+             jsEngine:function(text,httpChannel){
 
                                 var jsStart;
                                 var jsEnd;
@@ -164,6 +187,9 @@ headertoolModule.HeaderTool = {
                                 s.getPathname            = headertoolModule.HeaderTool.getPathname;
                                 s.getSearch              = headertoolModule.HeaderTool.getSearch;  
                                 s.getElementsByTagName   = headertoolModule.HeaderTool.getElementsByTagName;
+                                // WiP : but seems an unhappy jurney
+                                // s.getHeader              = headertoolModule.HeaderTool.getHeader;
+                                // s.httpChannel            = httpChannel;
                                 
 
                                 while ((jsStart=text.indexOf("${")) > -1){ 
@@ -207,7 +233,7 @@ headertoolModule.HeaderTool = {
                          * MAIN PARSER LOGIC
                          * ===================================================================================== */
 
-                        parser : function(text) {
+                        parser : function(text, httpChannel) {
 
                                 if(text==null){
                                         //if no code is provided load from editor
@@ -217,7 +243,7 @@ headertoolModule.HeaderTool = {
 
                                 this.clear();
 
-                                text = this.jsEngine(text);
+                                text = this.jsEngine(text, httpChannel);
 
                                 //alert("text:"+text);
 
@@ -281,9 +307,9 @@ headertoolModule.HeaderTool = {
                         },
                         /**
                               nsICryptoHash facility conversion algorithm
-                              MD2         1         Message Digest Algorithm 2
-                              MD5         2         Message-Digest algorithm 5
-                              SHA1         3         Secure Hash Algorithm 1
+                              MD2            1         Message Digest Algorithm 2
+                              MD5            2         Message-Digest algorithm 5
+                              SHA1           3         Secure Hash Algorithm 1
                               SHA256         4         Secure Hash Algorithm 256
                               SHA384         5         Secure Hash Algorithm 384
                               SHA512         6         Secure Hash Algorithm 512
@@ -315,7 +341,7 @@ headertoolModule.HeaderTool = {
                                 var data = converter.convertToByteArray(str, result);
                                 var ch = Components.classes["@mozilla.org/security/hash;1"]
                                 .createInstance(Components.interfaces.nsICryptoHash);
-                                var type = this.getChecksumType(algorithm);                      
+                                var type = headertoolModule.HeaderTool.getChecksumType(algorithm);                      
                                 ch.init(type /*ch.MD5*/);
                                 ch.update(data, data.length);
                                 var hash = ch.finish(false);
@@ -331,6 +357,12 @@ headertoolModule.HeaderTool = {
                                 return s;
                         },
 
+
+                        getHeader:function(x){
+                               var rqh = this.httpChannel.getRequestHeader(x);
+                               var rsh = this.httpChannel.getResponseHeader(x);
+                               return rqh?rqh:rsh;
+                        },
 
                        
                         previous:function(){
