@@ -6,7 +6,7 @@ The tool is based on the same main stream idea of modify header but use a more s
 **Download from** [addons.mozilla.org](https://addons.mozilla.org/it/firefox/addon/header-tool/)
 
 Using this tool you can easy modify header on each HTTP call on the **Mozilla Firefox**.
-The tool is based on the same main stream idea of modify header but use a more simple text editor interface more quicker do edit and to store and save for multiple and repeated test cases. For example, you can save your header in a simple txt file and reuse it by just copying _crtl+C_ and pasting _crtl+V_ it to the Mozilla Firefox Header Tool sidebar (open it with F10->Menu->View->Side Bar->Header Tool). If you find an issue or you have an idea on how improve this plugin pleasepen a ticket, as soon as possible i'll try to fix it. If you are a developer don't hesitate to send to me the patch   
+The tool is based on the same main stream idea of modify header but use a more simple text editor interface more quicker do edit and to store and save for multiple and repeated test cases. For example, you can save your header in a simple txt file and reuse it by just copying _crtl+C_ and pasting _crtl+V_ it to the Mozilla Firefox Header Tool sidebar (F10→Menu→View→Side Bar→Header Tool). If you find an issue or you have an idea on how improve this plugin pleasepen a ticket, as soon as possible i'll try to fix it. If you are a developer don't hesitate to send to me the patch   
 
 *Strengths* : **simplicity, _JS_ substitution like base 64, quick changes can do easy.**
 
