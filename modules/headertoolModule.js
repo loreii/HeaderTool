@@ -326,7 +326,7 @@ headertoolModule.HeaderTool = {
                                 }
 
                                 // convert the binary hash data to a hex string.
-                                var s = [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
+                                var s = [for (i in hash) toHexString(hash.charCodeAt(i))].join("");
                                 return s;
                         },
 
