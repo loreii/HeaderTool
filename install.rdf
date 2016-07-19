@@ -4,7 +4,7 @@
     <em:id>pavesilo@gmail.com</em:id>
     <em:type>2</em:type>
     <em:name>HeaderTool</em:name>
-    <em:version>0.6.1</em:version>
+    <em:version>0.6.2</em:version>
     <em:creator>Lorenzo Pavesi</em:creator>
     <em:contributor></em:contributor>
     <em:description>A simple modify header extension</em:description>
@@ -15,7 +15,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- Firefox -->
         <em:minVersion>4.0</em:minVersion>
-        <em:maxVersion>30.*</em:maxVersion>
+        <em:maxVersion>47.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>
