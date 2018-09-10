@@ -1,16 +1,16 @@
 Header Tool
 ============
-You can easy _modify header_ on each HTTP call on the **Mozilla Firefox**.
-The tool is based on the same main stream idea of modify header but use a more simple text editor interface more quicker do edit and to store and save for multiple and repeated test cases.
+You can easily _modify header_ on each HTTP call on the **Mozilla Firefox**.
+The tool is based on the same mainstream idea of modifying the header but uses a more simple text editor interface to more quickly edit, store and save for multiple and repeated test cases.
 
 **Download from** [addons.mozilla.org](https://addons.mozilla.org/it/firefox/addon/header-tool/)
 
-Using this tool you can easy modify header on each HTTP call on the **Mozilla Firefox**.
-The tool is based on the same main stream idea of modify header but use a more simple text editor interface more quicker do edit and to store and save for multiple and repeated test cases. For example, you can save your header in a simple txt file and reuse it by just copying _crtl+C_ and pasting _crtl+V_ it to the Mozilla Firefox Header Tool sidebar (F10→Menu→View→Side Bar→Header Tool). If you find an issue or you have an idea on how improve this plugin pleasepen a ticket, as soon as possible i'll try to fix it. If you are a developer don't hesitate to send to me the patch   
+Using this tool you can easily modify the header on each HTTP call on the **Mozilla Firefox**.
+The tool is based on the same mainstream idea of modifying the header but uses a more simple text editor interface to more quickly edit, store and save for multiple and repeated test cases. For example, you can save your header in a simple txt file and reuse it by just copying _crtl+C_ and pasting _crtl+V_ it to the Mozilla Firefox Header Tool sidebar (F10→Menu→View→Side Bar→Header Tool). If you find an issue or you have an idea on how to improve this plugin pleaseopen a ticket, as soon as possible i'll try to fix it. If you are a developer don't hesitate to send to me the patch   
 
-*Strengths* : **simplicity, _JS_ substitution like base 64, quick changes can do easy.**
-
-Support for _JS_ substitution in **${ }** statement that permit you to do as example : 
+*Strengths* : **simplicity, _JS_ substitution like base 64, quick changes can be done easy.**
+to 
+Support for _JS_ substitution in **${ }** statement that permits you to do, for example : 
 
     #========================================================================================
     X-USERNAME    : ${b64('foo')}                      #base64 encoding"
@@ -27,7 +27,7 @@ Support for _JS_ substitution in **${ }** statement that permit you to do as exa
                   }
     #========================================================================================
 
-Javascript can be refreshed dinamically for each HTTP request selecting the countinuos checkbox (since version 0.6.0).
+Javascript can be refreshed dynamically for each HTTP request selecting the continuous checkbox (since version 0.6.0).
 
     #========================================================================================
     x-multiline-js: ${
@@ -74,7 +74,7 @@ You can also use the internal function  crypto("sha1","plain text"); where the f
 Regular Expression Support
 --------------------------
 You can use the "@" character at the first char in a line in order to specify a 
-regular expression set of header. Since this line all the headers comes above is
+regular expression set of header. Since this line all the headers above are
 activated *only* for the matching URI.
 
     #========================================================================================
@@ -90,7 +90,7 @@ activated *only* for the matching URI.
     @^https                     //the following two headers is enabled only for HTTPS
     x-all-1a : header-value     
     x-all-1b : header-value     
-    @prod                       //the following headers is enabled only for URI with "prod" inside
+    @prod                       //the following headers are enabled only for URI with "prod" inside
     x-all-2 : header-value      
     #========================================================================================
 
@@ -117,5 +117,5 @@ Move from Modify Headers
 If you are already using modify headers you can simply switch to this plugin just with the following steps :
 - enable all the headers inside the modify headers Enable All Button
 - open a site for header visualization *http://headers.online*
-- cut&past in the the header in the text area
+- cut&paste in the header in the text area
 
