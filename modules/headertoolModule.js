@@ -51,6 +51,27 @@ headertoolModule.HeaderTool = {
         
         setCountinuosJS: function(b){
                 this.cjs=b;
+                // Persist the continuous JS setting
+                try {
+                        var preferencies = Components.classes["@mozilla.org/preferences-service;1"]
+                                .getService(Components.interfaces.nsIPrefService)
+                                .getBranch("extensions.headertool.preferencies.");
+                        preferencies.setBoolPref("cjs", b);
+                } catch(e) {
+                        this.LOG("Failed to save cjs preference: " + e);
+                }
+        },
+
+        getCountinuosJS: function(){
+                try {
+                        var preferencies = Components.classes["@mozilla.org/preferences-service;1"]
+                                .getService(Components.interfaces.nsIPrefService)
+                                .getBranch("extensions.headertool.preferencies.");
+                        this.cjs = preferencies.getBoolPref("cjs");
+                } catch(e) {
+                        this.cjs = false;
+                }
+                return this.cjs;
         },
         
         getWin: function(){

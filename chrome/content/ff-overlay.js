@@ -173,7 +173,16 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
                                         this.preferencies.setBoolPref("onoff", false); 
                                 }
 
-                           
+                                // Restore continuous JS checkbox state
+                                try{
+                                        var cjsValue = headertoolModule.HeaderTool.getCountinuosJS();
+                                        var cjsCheckbox = document.getElementById("cjs");
+                                        if(cjsCheckbox){
+                                                cjsCheckbox.checked = cjsValue;
+                                        }
+                                }catch(exx){
+                                        this.LOG("Exception restoring cjs state: "+exx);
+                                }
                                 
                                 this.setCode( this.text );
                                 this.LOG("Loading Preferencies... [done]");
