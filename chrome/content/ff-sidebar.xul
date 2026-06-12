@@ -23,7 +23,7 @@
                   accesskey="C" 
                   id="headertool_button_clear" 
                   disabled="true"
-                  oncommand="HeaderToolChrome.BrowserOverlay.clear();HeaderToolChrome.BrowserOverlay.togleOnOff();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_apply').setAttribute('disabled', 'false');"
+                  oncommand="HeaderToolChrome.BrowserOverlay.clear();this.setAttribute('disabled', 'true');document.getElementById('headertool_button_apply').setAttribute('disabled', 'false');"
                   crop="end" 
                   tooltiptext="Click here to restore the default headers" 
                   persist="disabled"        />

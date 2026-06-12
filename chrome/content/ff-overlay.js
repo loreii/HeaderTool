@@ -229,7 +229,11 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
                                 }
 
                                 headertoolModule.HeaderTool.setText(text)
-                                this.togleOnOff();
+                                // Only toggle if not already on
+                                var value = this.preferencies.getBoolPref("onoff");
+                                if(!value){
+                                        this.togleOnOff();
+                                }
                         },
 
 
@@ -238,7 +242,11 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
                          * ======================================= */
                         clear : function() {
                                 headertoolModule.HeaderTool.clear();
-                                this.togleOnOff();
+                                // Only toggle if currently on
+                                var value = this.preferencies.getBoolPref("onoff");
+                                if(value){
+                                        this.togleOnOff();
+                                }
                         },
 
 
