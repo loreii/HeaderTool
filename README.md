@@ -1,9 +1,25 @@
 Header Tool
 ============
-You can easily _modify header_ on each HTTP call on the **Mozilla Firefox**.
-The tool is based on the same mainstream idea of modifying the header but uses a more simple text editor interface to more quickly edit, store and save for multiple and repeated test cases.
+
+> **v1.0.0 — Now compatible with Firefox 57+ (Quantum) and latest versions!**
+>
+> The extension has been fully rewritten as a WebExtension. All known bugs have been fixed:
+> - ✅ Compatible with Firefox Quantum and latest Firefox (142+)
+> - ✅ "Continuous JS" setting now persists across restarts
+> - ✅ ON/OFF state correctly restored on browser start
+> - ✅ Clipboard copy works on Linux/Ubuntu
+> - ✅ No longer breaks Firefox Sync
+> - ✅ Proper handling of security headers (Upgrade-Insecure-Requests)
+> - ✅ All URLs updated from defunct Google Code to GitHub
+>
+> The new WebExtension version is in the `webextension/` directory.
 
 **Download from** [addons.mozilla.org](https://addons.mozilla.org/it/firefox/addon/header-tool/)
+
+---
+
+You can easily _modify header_ on each HTTP call on the **Mozilla Firefox**.
+The tool is based on the same mainstream idea of modifying the header but uses a more simple text editor interface to more quickly edit, store and save for multiple and repeated test cases.
 
 Using this tool you can easily modify the header on each HTTP call on the **Mozilla Firefox**.
 The tool is based on the same mainstream idea of modifying the header but uses a more simple text editor interface to more quickly edit, store and save for multiple and repeated test cases. For example, you can save your header in a simple txt file and reuse it by just copying _crtl+C_ and pasting _crtl+V_ it to the Mozilla Firefox Header Tool sidebar (F10→Menu→View→Side Bar→Header Tool). If you find an issue or you have an idea on how to improve this plugin pleaseopen a ticket, as soon as possible i'll try to fix it. If you are a developer don't hesitate to send to me the patch   
