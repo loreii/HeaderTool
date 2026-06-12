@@ -349,7 +349,7 @@ if ("undefined" == typeof (HeaderToolChrome) ) {
                         copyToClip:function(text){
                                 var gClipboardHelper = Components.classes["@mozilla.org/widget/clipboardhelper;1"].  
                                 getService(Components.interfaces.nsIClipboardHelper);  
-                                gClipboardHelper.copyString(text);  
+                                gClipboardHelper.copyString(text, document);  
                         },
 
                         serialize:function(trailing){
