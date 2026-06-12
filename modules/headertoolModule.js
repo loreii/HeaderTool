@@ -68,6 +68,20 @@ headertoolModule.HeaderTool = {
                   var httpChannel = subject.QueryInterface(Components.interfaces.nsIHttpChannel);
                   var currURL = httpChannel.URI.spec
 
+                  // Skip internal Firefox requests (Sync, updates, telemetry, etc.)
+                  try{
+                          if(currURL.indexOf("services.mozilla.com") > -1 ||
+                             currURL.indexOf("sync.services.mozilla.com") > -1 ||
+                             currURL.indexOf("accounts.firefox.com") > -1 ||
+                             currURL.indexOf("aus5.mozilla.org") > -1 ||
+                             currURL.indexOf("telemetry.mozilla.org") > -1 ||
+                             currURL.indexOf("oauth.accounts.firefox.com") > -1 ||
+                             currURL.indexOf("token.services.mozilla.com") > -1){
+                            this.LOG("Skipping internal Firefox URL: "+currURL);
+                            return;
+                          }
+                  }catch(ex){}
+
                   try{
                           this.LOG("apply headers on URL : "+currURL);
                           this.LOG("cjs    : "+this.cjs);
