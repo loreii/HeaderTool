@@ -8,8 +8,8 @@
     <em:creator>Lorenzo Pavesi</em:creator>
     <em:contributor></em:contributor>
     <em:description>A simple modify header extension</em:description>
-    <em:updateInfoURL>http://code.google.com/p/headertool/</em:updateInfoURL>
-    <em:homepageURL>http://code.google.com/p/headertool/</em:homepageURL>
+    <em:updateInfoURL>https://github.com/loreii/HeaderTool</em:updateInfoURL>
+    <em:homepageURL>https://github.com/loreii/HeaderTool</em:homepageURL>
     <em:iconURL>chrome://headertool/skin/Crocodile.png</em:iconURL>
     <em:targetApplication>
       <Description>

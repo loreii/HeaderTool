@@ -147,7 +147,7 @@ headertoolModule.HeaderTool = {
 
                                 var jsStart;
                                 var jsEnd;
-                                var s = new Components.utils.Sandbox("http://code.google.com/p/headertool/");
+                                var s = new Components.utils.Sandbox("https://github.com/loreii/HeaderTool");
                                 //importing utility method inside the sandbox
                                 s.b64                    = headertoolModule.HeaderTool.b64;
                                 s.href                   = headertoolModule.HeaderTool.href;
