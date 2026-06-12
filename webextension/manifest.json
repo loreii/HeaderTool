@@ -5,6 +5,15 @@
   "description": "A simple HTTP header modifier extension with JS expressions, regex URL matching, and clipboard export.",
   "author": "Lorenzo Pavesi",
   "homepage_url": "https://github.com/loreii/HeaderTool",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "pavesilo@gmail.com",
+      "strict_min_version": "57.0",
+      "data_collection_permissions": {
+        "required": false
+      }
+    }
+  },
   "icons": {
     "48": "icons/Crocodile_48.png",
     "96": "icons/Crocodile_96.png"
@@ -24,10 +33,16 @@
   "sidebar_action": {
     "default_title": "Header Tool",
     "default_panel": "sidebar/sidebar.html",
-    "default_icon": "icons/Crocodile_48.png"
+    "default_icon": {
+      "20": "icons/Crocodile_20.png",
+      "48": "icons/Crocodile_48.png"
+    }
   },
   "browser_action": {
-    "default_icon": "icons/Crocodile_48.png",
+    "default_icon": {
+      "20": "icons/Crocodile_20.png",
+      "48": "icons/Crocodile_48.png"
+    },
     "default_title": "Header Tool",
     "default_popup": "popup/popup.html"
   },
