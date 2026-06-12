@@ -109,7 +109,16 @@ headertoolModule.HeaderTool = {
                                   if(test)
                                       for (var e in headerMap[i]) {
                                         this.LOG('key is: ' + e + ', value is: ' + headerMap[i][e]);
-                                        httpChannel.setRequestHeader(e, headerMap[i][e], false);
+                                        if(headerMap[i][e].replace(/\s/g,'') === ''){
+                                          // Empty value means remove the header
+                                          try{
+                                            httpChannel.setRequestHeader(e, "", false);
+                                          }catch(ex2){
+                                            this.LOG("Failed to remove header: " + e + " - " + ex2);
+                                          }
+                                        } else {
+                                          httpChannel.setRequestHeader(e, headerMap[i][e], false);
+                                        }
                                       }
 
                           }
