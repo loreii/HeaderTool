@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <div class="toolbar">
+    <button id="btn-on" title="Apply headers">ON</button>
+    <button id="btn-off" title="Clear headers" disabled>OFF</button>
+    <label class="checkbox-label">
+      <input type="checkbox" id="cjs"> continuous JS
+    </label>
+  </div>
+  <textarea id="headerText" placeholder="# Enter headers here&#10;X-Custom: value&#10;&#10;# Use @ for URL pattern matching&#10;@example.com&#10;X-Only-Here: yes" spellcheck="false"></textarea>
+  <script src="sidebar.js"></script>
+</body>
+</html>
