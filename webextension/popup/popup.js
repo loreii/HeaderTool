@@ -4,9 +4,10 @@ const statusEl = document.getElementById("status");
 const toggleBtn = document.getElementById("toggle");
 const sidebarBtn = document.getElementById("open-sidebar");
 
-function updateUI(enabled) {
-  statusEl.textContent = enabled ? "ON" : "OFF";
-  statusEl.className = "status " + (enabled ? "on" : "off");
+function updateUI(isEnabled) {
+  statusEl.textContent = isEnabled ? "ON" : "OFF";
+  statusEl.className = "status " + (isEnabled ? "on" : "off");
+  toggleBtn.textContent = isEnabled ? "Turn OFF" : "Turn ON";
 }
 
 browser.runtime.sendMessage({ action: "getState" }).then((state) => {

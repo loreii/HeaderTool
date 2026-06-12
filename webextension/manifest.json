@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Header Tool",
   "version": "1.0.0",
-  "description": "A simple HTTP header modifier extension",
+  "description": "A simple HTTP header modifier extension with JS expressions, regex URL matching, and clipboard export.",
   "author": "Lorenzo Pavesi",
   "homepage_url": "https://github.com/loreii/HeaderTool",
   "icons": {
@@ -13,6 +13,9 @@
     "webRequest",
     "webRequestBlocking",
     "storage",
+    "tabs",
+    "clipboardWrite",
+    "downloads",
     "<all_urls>"
   ],
   "background": {

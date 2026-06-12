@@ -12,7 +12,15 @@
       <input type="checkbox" id="cjs"> continuous JS
     </label>
   </div>
-  <textarea id="headerText" placeholder="# Enter headers here&#10;X-Custom: value&#10;&#10;# Use @ for URL pattern matching&#10;@example.com&#10;X-Only-Here: yes" spellcheck="false"></textarea>
+  <div class="toolbar secondary">
+    <button id="btn-wget" title="Copy as wget to clipboard">wget</button>
+    <button id="btn-curl" title="Copy as curl to clipboard">curl</button>
+    <span class="separator"></span>
+    <button id="btn-import" title="Import headers from file">Import</button>
+    <button id="btn-export" title="Export headers to file">Export</button>
+  </div>
+  <textarea id="headerText" placeholder="# Enter headers here&#10;X-Custom: value&#10;&#10;# Use @ for URL pattern matching&#10;@example.com&#10;X-Only-Here: yes&#10;&#10;# JS expressions&#10;Authorization: Basic ${b64('user:pass')}" spellcheck="false"></textarea>
+  <input type="file" id="file-input" accept=".txt,.ht" style="display:none">
   <script src="sidebar.js"></script>
 </body>
 </html>
