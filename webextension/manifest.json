@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "Header Tool",
+  "version": "1.0.0",
+  "description": "A simple HTTP header modifier extension with JS expressions, regex URL matching, and clipboard export.",
+  "author": "Lorenzo Pavesi",
+  "homepage_url": "https://github.com/loreii/HeaderTool",
+  "icons": {
+    "48": "icons/Crocodile_48.png",
+    "96": "icons/Crocodile_96.png"
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "tabs",
+    "clipboardWrite",
+    "downloads",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "sidebar_action": {
+    "default_title": "Header Tool",
+    "default_panel": "sidebar/sidebar.html",
+    "default_icon": "icons/Crocodile_48.png"
+  },
+  "browser_action": {
+    "default_icon": "icons/Crocodile_48.png",
+    "default_title": "Header Tool",
+    "default_popup": "popup/popup.html"
+  },
+  "commands": {
+    "_execute_sidebar_action": {
+      "suggested_key": {
+        "default": "F4"
+      }
+    }
+  }
+}

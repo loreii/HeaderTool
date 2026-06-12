@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-bottom: 1px solid #ccc;
+  background: #f5f5f5;
+  flex-wrap: wrap;
+}
+
+.toolbar.secondary {
+  padding: 4px 6px;
+  background: #fafafa;
+}
+
+.separator {
+  flex: 1;
+}
+
+button {
+  padding: 4px 10px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+button:hover:not(:disabled) {
+  background: #e8e8e8;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#btn-on {
+  color: #2a7d2a;
+}
+
+#btn-off {
+  color: #c0392b;
+}
+
+#btn-wget, #btn-curl {
+  color: #2c3e50;
+}
+
+#btn-import, #btn-export {
+  color: #7f8c8d;
+  font-weight: normal;
+}
+
+.checkbox-label {
+  margin-left: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#headerText {
+  flex: 1;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  resize: none;
+  font-family: "Fira Code", "Consolas", "Monaco", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  outline: none;
+  white-space: pre;
+  overflow: auto;
+}
+
+#headerText::placeholder {
+  color: #999;
+}
+
+.toast {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+}
